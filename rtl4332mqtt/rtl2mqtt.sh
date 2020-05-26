@@ -168,7 +168,8 @@ PROTOCOL="$(jq --raw-output '.protocol' $CONFIG_PATH)"
 FREQUENCY="$(jq --raw-output '.frequency' $CONFIG_PATH)"
 GAIN="$(jq --raw-output '.gain' $CONFIG_PATH)"
 OFFSET="$(jq --raw-output '.frequency_offset' $CONFIG_PATH)"
-DEVICE="$(jq --raw-output '.device' $CONFIG_PATH)"
+DEVICENUM="$(jq --raw-output '.device' $CONFIG_PATH)"
+if [ "$DEVICENUM" == "null" ]; then DEVICENUM='0' ; fi
 
 # Start the listener and enter an endless loop
 echo "Starting RTL_433 with parameters:"
@@ -180,11 +181,11 @@ echo "RTL_433 Protocol =" $PROTOCOL
 echo "RTL_433 Frequency =" $FREQUENCY
 echo "RTL_433 Gain =" $GAIN
 echo "RTL_433 Frequency Offset =" $OFFSET
-echo "RTL_433 Device ID =" $DEVICE
+echo "RTL_433 Device ID =" $DEVICENUM
 
 #set -x  ## uncomment for MQTT logging...
 
-/usr/local/bin/rtl_433 -d $DEVICE -F json -R $PROTOCOL -f $FREQUENCY -g $GAIN -p $OFFSET | while read line
+/usr/local/bin/rtl_433 -d $DEVICENUM -F json -R $PROTOCOL -f $FREQUENCY -g $GAIN -p $OFFSET | while read line
 do
   DEVICE="$(echo $line | jq --raw-output '.model' | tr -s ' ' '_')" # replace ' ' with '_'
   DEVICEID="$(echo $line | jq --raw-output '.id' | tr -s ' ' '_')"
