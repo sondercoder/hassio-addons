@@ -168,7 +168,7 @@ PROTOCOL="$(jq --raw-output '.protocol' $CONFIG_PATH)"
 FREQUENCY="$(jq --raw-output '.frequency' $CONFIG_PATH)"
 GAIN="$(jq --raw-output '.gain' $CONFIG_PATH)"
 OFFSET="$(jq --raw-output '.frequency_offset' $CONFIG_PATH)"
-DEVICENUM="$(jq --raw-output '.device' $CONFIG_PATH)"
+DEVICENUM="$(jq --raw-output '.devicenum' $CONFIG_PATH)"
 if [ "$DEVICENUM" == "null" ]; then DEVICENUM='0' ; fi
 
 # Start the listener and enter an endless loop
