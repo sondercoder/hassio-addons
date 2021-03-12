@@ -6,7 +6,13 @@
 # IMPORTANT: The container needs privileged access to /dev/bus/usb on the host.
 
 ARG BUILD_FROM
-FROM $BUILD_FROM
+FROM ${BUILD_FROM}
+
+# Build arguments
+ARG BUILD_ARCH
+ARG BUILD_DATE
+ARG BUILD_REF
+ARG BUILD_VERSION
 
 ENV LANG C.UTF-8
 
